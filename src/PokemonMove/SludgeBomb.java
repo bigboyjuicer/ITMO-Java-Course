@@ -10,9 +10,7 @@ public class SludgeBomb extends SpecialMove {
 
     @Override
     protected void applyOppEffects(Pokemon pokemon) {
-        if(!pokemon.hasType(Type.POISON) || !pokemon.hasType(Type.STEEL) || Math.random() <= 0.3) {
-            pokemon.setCondition(new Effect().condition(Status.POISON));
-        }
+        Effect.poison(pokemon);
     }
 
     @Override

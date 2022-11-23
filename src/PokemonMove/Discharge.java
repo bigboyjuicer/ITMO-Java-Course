@@ -12,7 +12,7 @@ public class Discharge extends SpecialMove {
     protected void applyOppEffects(Pokemon pokemon) {
 
         if(Math.random() <= 0.3) {
-            pokemon.setCondition(new Effect().condition(Status.PARALYZE));
+            Effect.paralyze(pokemon);
         }
 
     }

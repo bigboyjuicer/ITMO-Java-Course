@@ -9,14 +9,10 @@ public class GrassWhistle extends StatusMove {
     }
 
 
-    /**
-     * TODO: Find how sleep works
-     * @param pokemon
-     */
     @Override
     protected void applyOppEffects(Pokemon pokemon) {
 
-        pokemon.setCondition(new Effect().condition(Status.SLEEP));
+        Effect.sleep(pokemon);
 
     }
 

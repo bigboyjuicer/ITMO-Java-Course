@@ -11,7 +11,7 @@ public class DoubleTeam extends StatusMove {
     @Override
     protected void applySelfEffects(Pokemon pokemon) {
 
-        pokemon.setMod(Stat.SPEED, 1);
+        pokemon.setMod(Stat.EVASION, 1);
 
     }
 
