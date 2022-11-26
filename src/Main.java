@@ -1,4 +1,4 @@
-import PokemonEntity.*;
+import pokemonEntity.*;
 import ru.ifmo.se.pokemon.Battle;
 
 public class Main {
@@ -22,7 +22,6 @@ public class Main {
         b.addFoe(victreebel);
 
         b.go();
-
 
     }
 

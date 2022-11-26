@@ -1,9 +1,9 @@
-package PokemonEntity;
+package pokemonEntity;
 
-import PokemonMove.ChargeBeam;
-import PokemonMove.Discharge;
-import PokemonMove.Facade;
-import PokemonMove.Swagger;
+import pokemonMove.ChargeBeam;
+import pokemonMove.Discharge;
+import pokemonMove.Facade;
+import pokemonMove.Swagger;
 import ru.ifmo.se.pokemon.Pokemon;
 import ru.ifmo.se.pokemon.Type;
 
@@ -17,5 +17,7 @@ public class Plusle extends Pokemon {
         setType(Type.ELECTRIC);
         setMove(new ChargeBeam(), new Facade(), new Swagger(), new Discharge());
     }
+
+
 
 }

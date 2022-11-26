@@ -1,7 +1,6 @@
-package PokemonEntity;
+package pokemonEntity;
 
-import PokemonMove.ChargeBeam;
-import PokemonMove.LeafBlade;
+import pokemonMove.LeafBlade;
 
 public class Victreebel extends Weepinbell{
 

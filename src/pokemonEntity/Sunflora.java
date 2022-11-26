@@ -1,6 +1,6 @@
-package PokemonEntity;
+package pokemonEntity;
 
-import PokemonMove.LeafStorm;
+import pokemonMove.LeafStorm;
 
 public class Sunflora extends Sunkern{
 

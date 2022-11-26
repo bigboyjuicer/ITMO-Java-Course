@@ -1,6 +1,6 @@
-package PokemonEntity;
+package pokemonEntity;
 
-import PokemonMove.Growth;
+import pokemonMove.Growth;
 
 public class Weepinbell extends Bellsprout{
 

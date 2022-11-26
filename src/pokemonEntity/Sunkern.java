@@ -1,8 +1,8 @@
-package PokemonEntity;
+package pokemonEntity;
 
-import PokemonMove.DoubleTeam;
-import PokemonMove.GrassWhistle;
-import PokemonMove.RazorLeaf;
+import pokemonMove.DoubleTeam;
+import pokemonMove.GrassWhistle;
+import pokemonMove.RazorLeaf;
 import ru.ifmo.se.pokemon.Pokemon;
 import ru.ifmo.se.pokemon.Type;
 

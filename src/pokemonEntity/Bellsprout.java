@@ -1,7 +1,7 @@
-package PokemonEntity;
+package pokemonEntity;
 
-import PokemonMove.Facade;
-import PokemonMove.SludgeBomb;
+import pokemonMove.Facade;
+import pokemonMove.SludgeBomb;
 import ru.ifmo.se.pokemon.Pokemon;
 import ru.ifmo.se.pokemon.Type;
 
