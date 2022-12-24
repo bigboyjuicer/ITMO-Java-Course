@@ -35,7 +35,6 @@ public class Main {
         Tree lipa = new Tree("Lipa");
         initLeaves(lipa);
 
-
         System.out.println(evening.getDayTime().getName());
         temperatureManager.calculateWeatherType();
         lipa.hasLeaves();
@@ -55,6 +54,9 @@ public class Main {
         fight.setOver(true);
 
         carlson.move(Places.FLAT);
+
+        baby.searchInBox();
+
 
 
     }
