@@ -1,14 +1,12 @@
 package entity;
 
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class SpaceMarineSet {
-    private final LinkedHashSet<SpaceMarine> spaceMarines;
+    private LinkedHashSet<SpaceMarine> spaceMarines;
 
     public SpaceMarineSet(LinkedHashSet<SpaceMarine> set) {
-        this.spaceMarines = set;
+        spaceMarines = set == null ? new LinkedHashSet<>() : set;
     }
 
     public void add(SpaceMarine spaceMarine) {
@@ -19,15 +17,32 @@ public class SpaceMarineSet {
         spaceMarines.removeIf(o -> o.getId() == id);
     }
 
-    public void edit(int id, SpaceMarine spaceMarine) {
+    public void update(SpaceMarine spaceMarine) {
+        spaceMarines.removeIf(o -> o.getId() == spaceMarine.getId());
+        spaceMarines.add(spaceMarine);
+    }
 
+    public void removeIf(SpaceMarine spaceMarine) {
+        spaceMarines.removeIf(o -> o.getName().compareTo(spaceMarine.getName()) > 0);
+    }
+
+    public SpaceMarine getElement(int id) {
+        Iterator<SpaceMarine> iterator = spaceMarines.iterator();
+        while(iterator.hasNext()) {
+            SpaceMarine spaceMarine = iterator.next();
+            if(spaceMarine.getId() == id){
+                return spaceMarine;
+            }
+        }
+
+        return null;
     }
 
     public void clear() {
         spaceMarines.clear();
     }
 
-    public Set<SpaceMarine> get() {
+    public Set<SpaceMarine> getSet() {
         return Set.copyOf(spaceMarines);
     }
 }

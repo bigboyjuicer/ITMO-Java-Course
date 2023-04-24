@@ -14,13 +14,13 @@ import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class SpaceMarineManager {
+public class FileManager {
 
     private static final Gson gson = Converters.registerLocalDateTime(new GsonBuilder()).create();
 
     public static void save(SpaceMarineSet spaceMarines) {
         try(JsonWriter jsonWriter = new JsonWriter(new BufferedWriter(new FileWriter("data/space_marine.json")))) {
-            gson.toJson(spaceMarines, LinkedHashSet.class, jsonWriter);
+            gson.toJson(spaceMarines.getSet(), LinkedHashSet.class, jsonWriter);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -32,10 +32,6 @@ public class SpaceMarineManager {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static void add(SpaceMarine spaceMarine, SpaceMarineSet spaceMarines){
-        spaceMarines.add(spaceMarine);
     }
 
 }

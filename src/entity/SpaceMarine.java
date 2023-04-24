@@ -5,12 +5,13 @@ import type.Weapon;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.UUID;
 
-public class SpaceMarine implements Comparable {
+public class SpaceMarine implements Comparator<SpaceMarine>, Comparable<SpaceMarine> {
 
-    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm");
+    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a");
 
     private long id;
     private String name;
@@ -107,6 +108,11 @@ public class SpaceMarine implements Comparable {
     }
 
     @Override
+    public int compare(SpaceMarine o1, SpaceMarine o2) {
+        return Long.compare(o1.getId(), o2.getId());
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -135,8 +141,7 @@ public class SpaceMarine implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
-        SpaceMarine spaceMarine = (SpaceMarine) o;
-        return this.name.compareTo(spaceMarine.getName());
+    public int compareTo(SpaceMarine o) {
+        return this.name.compareTo(o.getName());
     }
 }

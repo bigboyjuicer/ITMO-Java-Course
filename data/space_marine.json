@@ -1,40 +1,40 @@
 [
   {
-    "id": 1,
-    "name": "SpaceMarine",
-    "coordinates": {
-      "x": 0,
-      "y": 0
-    },
-    "creationDate": "2023-04-23T22:12:49.9166544",
-    "health": 100.0,
-    "heartCount": 2,
-    "category": "LIBRARIAN",
-    "weaponType": "HEAVY_BOLTGUN",
-    "chapter": {
-      "name": "Chapter",
-      "parentLegion": "ParentLegion",
-      "marinesCount": 50,
-      "world": "World1"
-    }
-  },
-  {
-    "id": 2,
-    "name": "SpaceMarine2",
+    "id": -618096211,
+    "name": "ZarineSpace",
     "coordinates": {
       "x": 5,
       "y": 5
     },
-    "creationDate": "2023-04-23T22:12:49.9166544",
+    "creationDate": "2023-04-24T19:50:24.2309297",
     "health": 100.0,
     "heartCount": 2,
-    "category": "AGGRESSOR",
-    "weaponType": "INFERNO_PISTOL",
+    "category": "LIBRARIAN",
+    "weaponType": "BOLT_RIFLE",
     "chapter": {
-      "name": "Chapter2",
-      "parentLegion": "ParentLegion2",
-      "marinesCount": 50,
-      "world": "World2"
+      "name": "Chapter",
+      "parentLegion": "parentLegion",
+      "marinesCount": 55,
+      "world": "World"
+    }
+  },
+  {
+    "id": 165120070,
+    "name": "SpaceMarineUpdated",
+    "coordinates": {
+      "x": 10,
+      "y": 10
+    },
+    "creationDate": "2023-04-24T19:22:40.829956",
+    "health": 55.0,
+    "heartCount": 2,
+    "category": "AGGRESSOR",
+    "weaponType": "HEAVY_BOLTGUN",
+    "chapter": {
+      "name": "Chapter",
+      "parentLegion": "parentLegion",
+      "marinesCount": 100,
+      "world": "World"
     }
   }
 ]
