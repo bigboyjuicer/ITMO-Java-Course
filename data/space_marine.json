@@ -1,0 +1,40 @@
+[
+  {
+    "id": 1,
+    "name": "SpaceMarine",
+    "coordinates": {
+      "x": 0,
+      "y": 0
+    },
+    "creationDate": "2023-04-23T22:12:49.9166544",
+    "health": 100.0,
+    "heartCount": 2,
+    "category": "LIBRARIAN",
+    "weaponType": "HEAVY_BOLTGUN",
+    "chapter": {
+      "name": "Chapter",
+      "parentLegion": "ParentLegion",
+      "marinesCount": 50,
+      "world": "World1"
+    }
+  },
+  {
+    "id": 2,
+    "name": "SpaceMarine2",
+    "coordinates": {
+      "x": 5,
+      "y": 5
+    },
+    "creationDate": "2023-04-23T22:12:49.9166544",
+    "health": 100.0,
+    "heartCount": 2,
+    "category": "AGGRESSOR",
+    "weaponType": "INFERNO_PISTOL",
+    "chapter": {
+      "name": "Chapter2",
+      "parentLegion": "ParentLegion2",
+      "marinesCount": 50,
+      "world": "World2"
+    }
+  }
+]
