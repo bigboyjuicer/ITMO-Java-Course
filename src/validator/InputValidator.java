@@ -1,13 +1,12 @@
-package handler;
+package validator;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class InputHandler {
+public class InputValidator {
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static String stringHandler(String field) {
+    public static String stringValidator(String field) {
         System.out.printf("Введите %s: ", field);
         String str = scanner.nextLine().trim();
         while(str.isEmpty()) {
@@ -18,7 +17,7 @@ public class InputHandler {
         return str;
     }
 
-    public static int intHandler(String field) {
+    public static int intValidator(String field) {
         while (true){
             try {
                 System.out.printf("Введите %s: ", field);
@@ -30,7 +29,7 @@ public class InputHandler {
         }
     }
 
-    public static int intHandler(String field, int min) {
+    public static int intValidator(String field, int min) {
         while (true){
             try {
                 System.out.printf("Введите %s: ", field);
@@ -44,7 +43,7 @@ public class InputHandler {
         }
     }
 
-    public static int intHandler(String field, int min, int max) {
+    public static int intValidator(String field, int min, int max) {
         while (true){
             try {
                 System.out.printf("Введите %s: ", field);
@@ -58,7 +57,7 @@ public class InputHandler {
         }
     }
 
-    public static float floatHandler(String field) {
+    public static float floatValidator(String field) {
         while (true){
             try {
                 System.out.printf("Введите %s: ", field);
@@ -70,7 +69,7 @@ public class InputHandler {
         }
     }
 
-    public static float floatHandler(String field, int min) {
+    public static float floatValidator(String field, int min) {
         while (true){
             try {
                 System.out.printf("Введите %s: ", field);
@@ -84,7 +83,7 @@ public class InputHandler {
         }
     }
 
-    public static long longHandler(String field) {
+    public static long longValidator(String field) {
         while (true){
             try {
                 System.out.printf("Введите %s: ", field);

@@ -19,11 +19,98 @@ import java.util.stream.Collectors;
 public class CommandManager {
 
     private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private static final Scanner scanner = new Scanner(System.in);
+
+    public static boolean active = true;
+
+    private static final Queue<String> HISTORY = new ArrayDeque<>(7);
+
+    public static void menu(String command, SpaceMarineSet spaceMarines) {
+        Scanner scanner = new Scanner(command);
+
+        switch (scanner.next()){
+            case("help"):
+                CommandManager.help();
+                HISTORY.add("help");
+                break;
+            case("info"):
+                CommandManager.info(spaceMarines);
+                HISTORY.add("info");
+                break;
+            case("show"):
+                CommandManager.show(spaceMarines);
+                HISTORY.add("show");
+                break;
+            case("add"):
+                CommandManager.add(spaceMarines);
+                HISTORY.add("add");
+                break;
+            case("update"):
+                try {
+                    CommandManager.update(scanner.nextInt(), spaceMarines);
+                } catch (InputMismatchException ex) {
+                    System.out.println("Был введен неверный аргумент. Предполагалось число.");
+                }
+                HISTORY.add("update");
+                break;
+            case("remove_by_id"):
+                try {
+                    CommandManager.remove(scanner.nextInt(), spaceMarines);
+                } catch (InputMismatchException ignored) {
+                    System.out.println("Был введен неверный аргумент. Предполагалось число.");
+                }
+                HISTORY.add("remove_by_id");
+                break;
+            case("clear"):
+                CommandManager.clear(spaceMarines);
+                HISTORY.add("clear");
+                break;
+            case("save"):
+                CommandManager.save(spaceMarines);
+                HISTORY.add("save");
+                break;
+            case("execute_script"):
+                CommandManager.executeScript(scanner.next().trim(), spaceMarines);
+                HISTORY.add("execute_script");
+                break;
+            case("exit"):
+                active = false;
+                break;
+            case("add_if_min"):
+                CommandManager.addIfMin(spaceMarines);
+                HISTORY.add("add_if_min");
+                break;
+            case("remove_greater"):
+                CommandManager.removeGreater(spaceMarines);
+                HISTORY.add("remove_greater");
+                break;
+            case("history"):
+                CommandManager.history();
+                HISTORY.add("history");
+                break;
+            case("max_by_creation_date"):
+                CommandManager.maxByCreationDate(spaceMarines);
+                HISTORY.add("max_by_creation_date");
+                break;
+            case("filter_by_weapon_type"):
+                CommandManager.filterByWeaponType(scanner.next(), spaceMarines);
+                HISTORY.add("filter_by_weapon_type");
+                break;
+            case("print_ascending"):
+                CommandManager.printAscending(spaceMarines);
+                HISTORY.add("print_ascending");
+                break;
+            default:
+                System.out.println("""
+                            Неверная команда.
+                            help : вывести справку по доступным командам.
+                            """);
+                break;
+        }
+    }
 
     public static void help() {
         System.out.println("""
-                Справка по доступным командам
+                \t\tСправка по доступным командам
                                 
                 help : вывести справку по доступным командам
                 info : вывести информацию о коллекции
@@ -100,9 +187,9 @@ public class CommandManager {
 
     public static void executeScript(String file, SpaceMarineSet spaceMarines){
         try(Scanner scanner = new Scanner(new FileReader(file))){
-
+            menu(scanner.nextLine().toLowerCase().trim(), spaceMarines);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("Введенный файл не существует");
         }
     }
 
@@ -117,6 +204,15 @@ public class CommandManager {
     public static void removeGreater(SpaceMarineSet spaceMarines) {
         SpaceMarine spaceMarine = EntityBuilder.spaceMarineBuilder();
         spaceMarines.removeIf(spaceMarine);
+    }
+
+    public static void history(){
+        if(HISTORY.size() == 0) {
+            System.out.println("История введенных команд пуста");
+        } else {
+            System.out.println("История введенных команд");
+            HISTORY.forEach(System.out::println);
+        }
     }
 
     public static void maxByCreationDate(SpaceMarineSet spaceMarines) {
