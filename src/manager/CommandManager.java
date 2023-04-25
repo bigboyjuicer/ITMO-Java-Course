@@ -135,9 +135,9 @@ public class CommandManager {
     public static void info(SpaceMarineSet spaceMarineSet) {
         try {
             String type = "SpaceMarine";
-            File file = new File("data/space_marine.json");
+            File file = new File("data/space_marine");
             float usableSpace = (float) file.length() / 1000;
-            FileTime creationTime = (FileTime) Files.getAttribute(Path.of("data/space_marine.json"), "creationTime");
+            FileTime creationTime = (FileTime) Files.getAttribute(Path.of("data/space_marine"), "creationTime");
             int size = spaceMarineSet.getSet().size();
 
             System.out.printf("""
