@@ -1,26 +1,23 @@
 import entity.SpaceMarineSet;
 import manager.CommandManager;
 import manager.FileManager;
-import java.util.*;
+import manager.LoggerManager;
 
+import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+  public static void main(String[] args) {
+    SpaceMarineSet spaceMarines = new SpaceMarineSet(FileManager.selectAll());
 
-        SpaceMarineSet spaceMarines = new SpaceMarineSet(FileManager.selectAll());
+    LoggerManager.createLogger();
 
-        try {
-            while (CommandManager.active) {
-                CommandManager.menu(scanner.nextLine().toLowerCase().trim(), spaceMarines);
-                scanner.reset();
-            }
-        } catch (NoSuchElementException ex) {
-            System.out.println("""
-                    Неверная команда.
-                    help : вывести справку по доступным командам.
-                    """);
-        }
+    while (CommandManager.active) {
+      try {
+        CommandManager.menu(new Scanner(System.in).nextLine().toLowerCase(), spaceMarines);
+      } catch (NoSuchElementException ex) {
+      }
     }
+  }
 }

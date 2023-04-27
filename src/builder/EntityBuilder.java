@@ -8,37 +8,44 @@ import selector.EnumSelector;
 import type.AstartesCategory;
 import type.Weapon;
 
+/***
+ * Class that provides entity building.
+ *
+ * @author Maksim Zinin
+ * @version 1.0
+ */
 public class EntityBuilder {
-    public static SpaceMarine spaceMarineBuilder() {
 
-        String name = InputValidator.stringValidator("название");
-        Coordinates coordinates = coordinatesBuilder();
-        float health = InputValidator.floatValidator("здоровье", 1);
-        int heartCounter = InputValidator.intValidator("кол-во жизней", 1, 3);
-        AstartesCategory category = EnumSelector.categorySelection();
-        Weapon weapon = EnumSelector.weaponSelection();
-        Chapter chapter = chapterBuilder();
+  public static SpaceMarine spaceMarineBuilder() {
 
-        return new SpaceMarine(name, coordinates, health, heartCounter, category, weapon, chapter);
-    }
+    String name = InputValidator.stringValidator("название");
+    Coordinates coordinates = coordinatesBuilder();
+    float health = InputValidator.floatValidator("здоровье", 1);
+    int heartCounter = InputValidator.intValidator("кол-во жизней", 1, 3);
+    AstartesCategory category = EnumSelector.categorySelection();
+    Weapon weapon = EnumSelector.weaponSelection();
+    Chapter chapter = chapterBuilder();
 
-    public static Coordinates coordinatesBuilder() {
-        System.out.println("Введите координаты");
+    return new SpaceMarine(name, coordinates, health, heartCounter, category, weapon, chapter);
+  }
 
-        int x = InputValidator.intValidator("x", -585);
-        int y = InputValidator.intValidator("y");
+  public static Coordinates coordinatesBuilder() {
+    System.out.println("Введите координаты");
 
-        return new Coordinates(x, y);
-    }
+    int x = InputValidator.intValidator("x", -585);
+    int y = InputValidator.intValidator("y");
 
-    public static Chapter chapterBuilder() {
-        System.out.println("Введите chapter");
+    return new Coordinates(x, y);
+  }
 
-        String chapterName = InputValidator.stringValidator("название");
-        String parentLegion = InputValidator.stringValidator("parentLegion");
-        long marinesCount = InputValidator.longValidator("кол-во кораблей");
-        String world = InputValidator.stringValidator("мир");
+  public static Chapter chapterBuilder() {
+    System.out.println("Введите chapter");
 
-        return new Chapter(chapterName, parentLegion, marinesCount, world);
-    }
+    String chapterName = InputValidator.stringValidator("название");
+    String parentLegion = InputValidator.stringValidator("parentLegion");
+    long marinesCount = InputValidator.longValidator("кол-во кораблей");
+    String world = InputValidator.stringValidator("мир");
+
+    return new Chapter(chapterName, parentLegion, marinesCount, world);
+  }
 }
