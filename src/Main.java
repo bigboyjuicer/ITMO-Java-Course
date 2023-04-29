@@ -15,8 +15,13 @@ public class Main {
 
     while (CommandManager.active) {
       try {
-        CommandManager.menu(new Scanner(System.in).nextLine().toLowerCase(), spaceMarines);
+        CommandManager.menu(new Scanner(System.in).nextLine().toLowerCase().trim(), spaceMarines);
       } catch (NoSuchElementException ex) {
+        System.out.println(
+            """
+                Неверная команда.
+                help : вывести справку по доступным командам.
+                """);
       }
     }
   }

@@ -23,7 +23,6 @@ public class Save implements Executable, Validatable {
   @Override
   public void execute() {
     FileManager.save(this.spaceMarines);
-    System.out.println("Коллекция успешно было сохранена");
     LoggerManager.logInfo("Saved collection");
     CommandManager.executed = true;
     CommandManager.HISTORY.add("save");

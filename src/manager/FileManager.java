@@ -13,7 +13,9 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.InputMismatchException;
 import java.util.LinkedHashSet;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -26,7 +28,7 @@ import java.util.stream.Collectors;
 public class FileManager {
 
   private static final Gson GSON = Converters.registerLocalDateTime(new GsonBuilder()).create();
-  private static Path path = getEnvVar();
+  public static Path path = getEnvVar();
 
   public static void save(SpaceMarineSet spaceMarines) {
     if (isExist()) {
@@ -34,6 +36,7 @@ public class FileManager {
         try (JsonWriter jsonWriter =
             new JsonWriter(new BufferedWriter(new FileWriter(path.toString()))); ) {
           GSON.toJson(spaceMarines.getSet(), LinkedHashSet.class, jsonWriter);
+          System.out.println("Коллекция успешно было сохранена");
         } catch (IOException e) {
           System.out.println("Не удалось сохранить данные");
         }
@@ -55,8 +58,8 @@ public class FileManager {
           return GSON.fromJson(
               jsonReader, new TypeToken<LinkedHashSet<SpaceMarine>>() {}.getType());
         } catch (IOException | JsonSyntaxException e) {
-          System.out.println("Файл поврежден");
-          createFile();
+          System.out.println("Файл поврежден или в нем находятся не корректные данные");
+          suggestCreationOrGettingFile();
           selectAll();
         }
       } else {
@@ -72,18 +75,58 @@ public class FileManager {
   }
 
   private static void createFile() {
+    System.out.println("Введите путь, где хотите создать новый файл");
     while (true) {
       try {
-        System.out.print("Введите путь, где хотите создать новый файл: ");
         Path newPath = Paths.get(new Scanner(System.in).next());
         Files.createFile(newPath);
-        System.out.println("Файл успешно создан");
         path = newPath;
+        System.out.println("Файл успешно создан");
         break;
       } catch (FileAlreadyExistsException ex) {
         System.out.println("Файл с таким названием уже существует");
       } catch (IOException e) {
-        System.out.println("Директории, в которую вы хотите сохранить файл, не существует");
+        System.out.println("Директории, в которой вы хотите создать файл, не существует");
+      } catch (NoSuchElementException ex) {
+        System.out.println("Некорректный ввод");
+      }
+    }
+  }
+
+  private static void getExistingFile() {
+    System.out.println("Введите путь до существующего файла");
+    while (true) {
+      Path file = Paths.get(new Scanner(System.in).nextLine().trim());
+      try {
+        if (Files.exists(file)) {
+          path = file;
+          System.out.println("Файл успешно найден");
+          break;
+        }
+        System.out.println("Файла не существует");
+      } catch (SecurityException ex) {
+        System.out.println("Отсутствует доступ к файлу");
+      }
+    }
+  }
+
+  private static void suggestCreationOrGettingFile() {
+    System.out.println(
+        "Вы хотите создать файл (1), указать существующий (2) или выйти из программы (3) ?");
+    while (true) {
+      try {
+        int choice = new Scanner(System.in).nextInt();
+        switch (choice) {
+          case (1) -> createFile();
+          case (2) -> getExistingFile();
+          case (3) -> System.exit(0);
+          default -> System.out.println("Неверное значение");
+        }
+        break;
+      } catch (InputMismatchException ex) {
+        System.out.println("Поле должно быть числом");
+      } catch (NoSuchElementException ex) {
+        System.out.println("Некорректный ввод");
       }
     }
   }
@@ -91,17 +134,18 @@ public class FileManager {
   private static boolean isExist() {
     if (!Files.exists(path)) {
       System.out.println("Файла с данными не существует");
-      createFile();
+      suggestCreationOrGettingFile();
     }
     return true;
   }
 
   private static Path getEnvVar() {
     try {
-      return Paths.get(System.getenv("file"));
+      return Paths.get(System.getenv("FILE"));
     } catch (NullPointerException | SecurityException ex) {
       System.out.println("Ошибка считывания переменной окружения");
+      suggestCreationOrGettingFile();
     }
-    return null;
+    return path;
   }
 }

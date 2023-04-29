@@ -27,6 +27,8 @@ public class AddIfMin implements Executable, Validatable {
     if (minSpaceMarine != null && minSpaceMarine.compareTo(spaceMarine) > 0) {
       this.spaceMarines.add(spaceMarine);
       System.out.println("Запись успешно добавлена");
+    } else {
+      System.out.println("Запись не удовлетворяет условиям");
     }
 
     CommandManager.executed = true;

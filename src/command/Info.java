@@ -4,6 +4,7 @@ import entity.SpaceMarineSet;
 import interfaces.Executable;
 import interfaces.Validatable;
 import manager.CommandManager;
+import manager.FileManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,10 +30,10 @@ public class Info implements Executable, Validatable {
   public void execute() {
     try {
       String type = "SpaceMarine";
-      File file = new File("data/space_marine");
+      File file = new File(FileManager.path.toString());
       float usableSpace = (float) file.length() / 1000;
       FileTime creationTime =
-          (FileTime) Files.getAttribute(Path.of("data/space_marine"), "creationTime");
+          (FileTime) Files.getAttribute(Path.of(FileManager.path.toString()), "creationTime");
       int size = spaceMarines.getSet().size();
 
       System.out.printf(
