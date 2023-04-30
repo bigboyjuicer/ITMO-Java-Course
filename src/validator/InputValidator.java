@@ -30,7 +30,7 @@ public class InputValidator {
         System.out.printf("Введите %s: ", field);
         String str = SCANNER.nextLine().trim();
         return Integer.parseInt(str);
-      } catch (NumberFormatException | NoSuchElementException ex) {
+      } catch (NumberFormatException ex) {
         System.out.println("Поле должно быть числом");
         SCANNER.remove();
       }
@@ -45,7 +45,7 @@ public class InputValidator {
         int num = Integer.parseInt(str);
         if (num >= min) return num;
         else System.out.printf("Значение должно быть больше %d\n", min - 1);
-      } catch (NumberFormatException | NoSuchElementException ex) {
+      } catch (NumberFormatException ex) {
         System.out.println("Поле должно быть числом");
       }
     }
@@ -61,7 +61,7 @@ public class InputValidator {
         else
           System.out.printf(
               "Значение должно быть больше %d. Максимальное значение поля: %d\n", min - 1, max);
-      } catch (NumberFormatException | NoSuchElementException ex) {
+      } catch (NumberFormatException ex) {
         System.out.println("Поле должно быть числом");
       }
     }
@@ -75,7 +75,7 @@ public class InputValidator {
         float num = Float.parseFloat(str);
         if (num >= min) return num;
         else System.out.printf("Значение должно быть больше %d\n", min - 1);
-      } catch (NumberFormatException | NoSuchElementException ex) {
+      } catch (NumberFormatException ex) {
         System.out.println("Поле должно быть числом с плавающей точкой");
       }
     }
@@ -87,7 +87,7 @@ public class InputValidator {
         System.out.printf("Введите %s: ", field);
         String str = SCANNER.nextLine().trim();
         return Long.parseLong(str);
-      } catch (NumberFormatException | NoSuchElementException ex) {
+      } catch (NumberFormatException ex) {
         System.out.println("Поле должно быть числом");
       }
     }

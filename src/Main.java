@@ -9,19 +9,26 @@ import java.util.NoSuchElementException;
 public class Main {
 
   public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+
     SpaceMarineSet spaceMarines = new SpaceMarineSet(FileManager.selectAll());
 
     LoggerManager.createLogger();
 
     while (CommandManager.active) {
       try {
-        CommandManager.menu(new Scanner(System.in).nextLine().toLowerCase().trim(), spaceMarines);
+        String command = scanner.nextLine().toLowerCase().trim();
+        if(!command.isEmpty()) {
+          CommandManager.menu(command, spaceMarines);
+        } else {
+          System.out.println("""
+                              Поле не может быть пустым.
+                              Введите help для помощи.
+                              """);
+        }
       } catch (NoSuchElementException ex) {
-        System.out.println(
-            """
-                Неверная команда.
-                help : вывести справку по доступным командам.
-                """);
+        System.out.println("Завершение программы...");
+        System.exit(0);
       }
     }
   }

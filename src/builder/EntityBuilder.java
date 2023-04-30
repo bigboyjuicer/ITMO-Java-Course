@@ -16,6 +16,11 @@ import type.Weapon;
  */
 public class EntityBuilder {
 
+  /**
+   * Method that builds SpaceMarine entity
+   * It offers user to input each field of the entity and further return new enityt
+   * @return SpaceMarine
+   */
   public static SpaceMarine spaceMarineBuilder() {
 
     String name = InputValidator.stringValidator("название");
@@ -28,7 +33,11 @@ public class EntityBuilder {
 
     return new SpaceMarine(name, coordinates, health, heartCounter, category, weapon, chapter);
   }
-
+  /**
+   * Method that builds Coordinates entity
+   * It offers user to input each field of the entity and further return new enityt
+   * @return Coordinates
+   */
   public static Coordinates coordinatesBuilder() {
     System.out.println("Введите координаты");
 
@@ -38,6 +47,11 @@ public class EntityBuilder {
     return new Coordinates(x, y);
   }
 
+  /**
+   * Method that builds Chapter entity
+   * It offers user to input each field of the entity and further return new enityt
+   * @return Chapter
+   */
   public static Chapter chapterBuilder() {
     System.out.println("Введите chapter");
 

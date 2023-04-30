@@ -1,1 +1,4 @@
 execute_script data/script1
+info
+add {"id":534534534,"name":"SpaceMarine","coordinates":{"x":0,"y":0},"creationDate":"2023-04-26T23:19:11.2859001","health":100.0,"heartCount":2,"category":"AGGRESSOR","weaponType":"BOLT_RIFLE","chapter":{"name":"Chapter","parentLegion":"parentLegion","marinesCount":55,"world":"World"}}
+history

@@ -1,10 +1,12 @@
 package command;
 
 import builder.EntityBuilder;
+import entity.SpaceMarine;
 import entity.SpaceMarineSet;
 import interfaces.Executable;
 import interfaces.Validatable;
 import manager.CommandManager;
+import manager.FileManager;
 import manager.LoggerManager;
 
 import java.util.Scanner;
@@ -32,12 +34,26 @@ public class Add implements Executable, Validatable {
   public boolean validate(String command, SpaceMarineSet spaceMarines) {
     Scanner scanner = new Scanner(command);
     String aCommand = scanner.next();
-    if (scanner.hasNext()) {
-      return false;
-    }
     if (aCommand.equals("add")) {
+      if(scanner.hasNextLine()) {
+        if(validateArg(scanner.nextLine(), spaceMarines)) {
+          System.out.println("Запись успешно добавлена");
+        }
+        CommandManager.executed = true;
+        CommandManager.HISTORY.add("add");
+        return true;
+      }
       this.spaceMarines = spaceMarines;
       execute();
+      return true;
+    }
+    return false;
+  }
+
+  private boolean validateArg(String arg, SpaceMarineSet spaceMarines) {
+    SpaceMarine spaceMarine = FileManager.parseJson(arg);
+    if(spaceMarine != null) {
+      spaceMarines.add(spaceMarine);
       return true;
     }
     return false;

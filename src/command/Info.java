@@ -55,7 +55,7 @@ public class Info implements Executable, Validatable {
       CommandManager.executed = true;
       CommandManager.HISTORY.add("info");
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      System.out.println("Файл не был найден");
     }
   }
 

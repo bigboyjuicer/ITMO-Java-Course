@@ -18,15 +18,14 @@ import java.util.Scanner;
  * @author Maksim Zinin
  * @version ver 1.1
  */
-public class ExecuteScript implements Executable, Validatable {
+public class ExecuteScript implements Validatable {
   private String arg;
   private SpaceMarineSet spaceMarines;
-  private Iterator<String> iterator;
+  private List<String> files = new ArrayList<>();
 
-  @Override
-  public void execute() {
-    while (iterator.hasNext()) {
-      CommandManager.menu(iterator.next(), this.spaceMarines);
+  public void execute(List<String> commands) {
+    for(String command : commands) {
+      CommandManager.menu(command, this.spaceMarines);
     }
     CommandManager.executed = true;
     CommandManager.HISTORY.add("execute_script");
@@ -41,29 +40,31 @@ public class ExecuteScript implements Executable, Validatable {
       return false;
     }
     if (aCommand.equals("execute_script") && this.arg != null) {
-      this.spaceMarines = spaceMarines;
-      fillCommandsFromScript();
-      return true;
+      if(files.contains(arg)) {
+        System.out.println("Скрипт уже был выполнен либо все еще выполняется");
+        CommandManager.executed = true;
+        return true;
+      } else {
+        files.add(arg);
+        this.spaceMarines = spaceMarines;
+        fillCommandsFromScript();
+        return true;
+      }
     }
     return false;
   }
 
   private void fillCommandsFromScript() {
-    if (iterator == null) {
-      try (Scanner scanner = new Scanner(new FileReader(this.arg))) {
-        List<String> commands = new ArrayList<>();
-        while (scanner.hasNextLine()) {
-          commands.add(scanner.nextLine());
-          iterator = commands.iterator();
-        }
-        execute();
-      } catch (FileNotFoundException e) {
-        System.out.println("Введенный файл не существует или не доступен для чтения");
-        CommandManager.executed = true;
-        CommandManager.HISTORY.add("execute_script");
+    try (Scanner scanner = new Scanner(new FileReader(this.arg))) {
+      List<String> commands = new ArrayList<>();
+      while (scanner.hasNextLine()) {
+        commands.add(scanner.nextLine());
       }
-    } else {
-      execute();
+      execute(commands);
+    } catch (FileNotFoundException e) {
+      System.out.println("Введенный файл не существует или не доступен для чтения");
+      CommandManager.executed = true;
+      CommandManager.HISTORY.add("execute_script");
     }
   }
 

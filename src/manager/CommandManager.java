@@ -19,6 +19,9 @@ public class CommandManager {
   public static boolean active = true;
   public static boolean executed = false;
 
+  /**
+   * Method that fills in collection all available commands
+   */
   private static void commandsFill() {
     COMMANDS.add(new Help());
     COMMANDS.add(new Info());
@@ -38,6 +41,13 @@ public class CommandManager {
     COMMANDS.add(new PrintAscending());
   }
 
+  /**
+   * Method that provides menu function
+   * It creates iterator to go through the all available commands
+   * and calls validate() method of each one element of the iterator
+   * @param command
+   * @param spaceMarines
+   */
   public static void menu(String command, SpaceMarineSet spaceMarines) {
     commandsFill();
     Iterator<Validatable> iterator = COMMANDS.iterator();

@@ -20,6 +20,7 @@ public class Exit implements Executable, Validatable {
     CommandManager.active = false;
     CommandManager.executed = true;
     CommandManager.HISTORY.add("exit");
+    System.out.println("Завершение программы...");
   }
 
   @Override

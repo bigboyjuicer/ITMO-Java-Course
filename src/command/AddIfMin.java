@@ -6,6 +6,7 @@ import entity.SpaceMarineSet;
 import interfaces.Executable;
 import interfaces.Validatable;
 import manager.CommandManager;
+import manager.FileManager;
 
 import java.util.Scanner;
 /***
@@ -22,9 +23,7 @@ public class AddIfMin implements Executable, Validatable {
   @Override
   public void execute() {
     SpaceMarine spaceMarine = EntityBuilder.spaceMarineBuilder();
-    SpaceMarine minSpaceMarine =
-        this.spaceMarines.getSet().stream().min(SpaceMarine::compareTo).orElse(null);
-    if (minSpaceMarine != null && minSpaceMarine.compareTo(spaceMarine) > 0) {
+    if (checkIfMin(spaceMarine)) {
       this.spaceMarines.add(spaceMarine);
       System.out.println("Запись успешно добавлена");
     } else {
@@ -39,14 +38,39 @@ public class AddIfMin implements Executable, Validatable {
   public boolean validate(String command, SpaceMarineSet spaceMarines) {
     Scanner scanner = new Scanner(command);
     String aCommand = scanner.next();
-    if (scanner.hasNext()) {
-      return false;
-    }
+
     if (aCommand.equals("add_if_min")) {
       this.spaceMarines = spaceMarines;
+      if (scanner.hasNextLine()) {
+        if(validateArg(scanner.nextLine(), spaceMarines)) {
+          System.out.println("Запись успешно добавлена");
+        }
+        CommandManager.executed = true;
+        CommandManager.HISTORY.add("add_if_min");
+        return true;
+      }
       execute();
       return true;
     }
     return false;
+  }
+
+  private boolean validateArg(String arg, SpaceMarineSet spaceMarines) {
+    SpaceMarine spaceMarine = FileManager.parseJson(arg);
+    if (spaceMarine != null) {
+      if (checkIfMin(spaceMarine)) {
+        spaceMarines.add(spaceMarine);
+        System.out.println("Запись успешно добавлена");
+      } else {
+        System.out.println("Запись не удовлетворяет условиям");
+      }
+    }
+    return false;
+  }
+
+  private boolean checkIfMin(SpaceMarine spaceMarine) {
+    SpaceMarine minSpaceMarine =
+        this.spaceMarines.getSet().stream().min(SpaceMarine::compareTo).orElse(null);
+    return minSpaceMarine != null && minSpaceMarine.compareTo(spaceMarine) > 0;
   }
 }

@@ -6,6 +6,7 @@ import entity.SpaceMarineSet;
 import interfaces.Executable;
 import interfaces.Validatable;
 import manager.CommandManager;
+import manager.FileManager;
 
 import java.util.Scanner;
 
@@ -33,12 +34,26 @@ public class RemoveGreater implements Executable, Validatable {
   public boolean validate(String command, SpaceMarineSet spaceMarines) {
     Scanner scanner = new Scanner(command);
     String aCommand = scanner.next();
-    if (scanner.hasNext()) {
-      return false;
-    }
     if (aCommand.equals("remove_greater")) {
+      if(scanner.hasNextLine()) {
+        if(validateArg(scanner.nextLine(), spaceMarines)) {
+          System.out.println("Записи успешно удалены");
+        }
+        CommandManager.executed = true;
+        CommandManager.HISTORY.add("remove_greater");
+        return true;
+      }
       this.spaceMarines = spaceMarines;
       execute();
+      return true;
+    }
+    return false;
+  }
+
+  private boolean validateArg(String arg, SpaceMarineSet spaceMarines) {
+    SpaceMarine spaceMarine = FileManager.parseJson(arg);
+    if(spaceMarine != null) {
+      spaceMarines.removeIf(spaceMarine);
       return true;
     }
     return false;

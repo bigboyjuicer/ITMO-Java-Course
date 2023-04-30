@@ -30,6 +30,13 @@ public class FileManager {
   private static final Gson GSON = Converters.registerLocalDateTime(new GsonBuilder()).create();
   public static Path path = getEnvVar();
 
+
+  /**
+   * Method provides file saving.
+   * It takes a file and output all data from collection,
+   * before that parsing all data to json format.
+   * @param spaceMarines
+   */
   public static void save(SpaceMarineSet spaceMarines) {
     if (isExist()) {
       if (Files.isWritable(path)) {
@@ -46,6 +53,12 @@ public class FileManager {
     }
   }
 
+  /**
+   * Method provides getting data from file.
+   * It takes a file and return all data,
+   * before that parsing them from json.
+   * @return
+   */
   public static LinkedHashSet<SpaceMarine> selectAll() {
     if (isExist()) {
       if (Files.isReadable(path)) {
@@ -74,6 +87,10 @@ public class FileManager {
     return null;
   }
 
+  /**
+   * Method that creates file if it's not existing or
+   * if the directory, that listed in Path, is existing.
+   */
   private static void createFile() {
     System.out.println("Введите путь, где хотите создать новый файл");
     while (true) {
@@ -93,6 +110,9 @@ public class FileManager {
     }
   }
 
+  /**
+   * Method that gets file if it's existing or user have enough permissions.
+   */
   private static void getExistingFile() {
     System.out.println("Введите путь до существующего файла");
     while (true) {
@@ -110,6 +130,9 @@ public class FileManager {
     }
   }
 
+  /**
+   * Suggest user to choose between creating file, getting existing file or exit from program.
+   */
   private static void suggestCreationOrGettingFile() {
     System.out.println(
         "Вы хотите создать файл (1), указать существующий (2) или выйти из программы (3) ?");
@@ -131,6 +154,10 @@ public class FileManager {
     }
   }
 
+  /**
+   * Checks if file is existing
+   * @return
+   */
   private static boolean isExist() {
     if (!Files.exists(path)) {
       System.out.println("Файла с данными не существует");
@@ -139,6 +166,11 @@ public class FileManager {
     return true;
   }
 
+  /**
+   * Method that gets environment variable. If variable
+   * doesn't exist, it calls suggestCreationGettingFile() method.
+   * @return Path
+   */
   private static Path getEnvVar() {
     try {
       return Paths.get(System.getenv("FILE"));
@@ -147,5 +179,18 @@ public class FileManager {
       suggestCreationOrGettingFile();
     }
     return path;
+  }
+
+  public static SpaceMarine parseJson(String json) {
+    try {
+      return GSON.fromJson(json, SpaceMarine.class);
+    } catch(JsonSyntaxException ex) {
+      System.out.println(
+              """
+              Неверная команда.
+              help : вывести справку по доступным командам.
+              """);
+    }
+    return null;
   }
 }

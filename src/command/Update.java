@@ -6,6 +6,7 @@ import entity.SpaceMarineSet;
 import interfaces.Executable;
 import interfaces.Validatable;
 import manager.CommandManager;
+import manager.FileManager;
 import manager.LoggerManager;
 
 import java.util.InputMismatchException;
@@ -50,7 +51,12 @@ public class Update implements Executable, Validatable {
       if (aCommand.equals("update")) {
         setArg(scanner);
         if (scanner.hasNext()) {
-          return false;
+          if(validateArg(scanner.nextLine(), spaceMarines)) {
+            System.out.println("Запись успешно добавлена");
+          }
+          CommandManager.executed = true;
+          CommandManager.HISTORY.add("add_if_min");
+          return true;
         }
         if (this.arg != 0) {
           this.spaceMarines = spaceMarines;
@@ -67,5 +73,22 @@ public class Update implements Executable, Validatable {
 
   private void setArg(Scanner scanner) {
     this.arg = scanner.hasNext() ? scanner.nextLong() : 0;
+  }
+
+  private boolean validateArg(String arg, SpaceMarineSet spaceMarines) {
+    SpaceMarine spaceMarine = FileManager.parseJson(arg);
+    if(spaceMarine != null) {
+      if(spaceMarines.getElement(spaceMarine.getId()) != null) {
+        spaceMarines.update(spaceMarine);
+
+        System.out.println("Запись успешно обновлена");
+
+        LoggerManager.logInfo("Updated element with id: " + this.arg);
+      } else System.out.println("Элемента с таким id нет в коллекции");
+
+      CommandManager.executed = true;
+      CommandManager.HISTORY.add("update");
+    }
+    return false;
   }
 }

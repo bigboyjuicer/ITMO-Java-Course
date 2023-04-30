@@ -22,6 +22,9 @@ public class LoggerManager {
       DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a");
   private static final Path PATH = Paths.get("log");
 
+  /**
+   * Method that creates logger.
+   */
   public static void createLogger() {
     try {
       Files.createFile(PATH);
@@ -30,6 +33,10 @@ public class LoggerManager {
     }
   }
 
+  /**
+   * Method that output data to logger.
+   * @param info
+   */
   public static void logInfo(String info) {
     try (PrintWriter printWriter =
         new PrintWriter(new BufferedWriter(new FileWriter(PATH.toString(), true)))) {
