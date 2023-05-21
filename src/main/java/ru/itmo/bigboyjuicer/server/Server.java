@@ -13,6 +13,7 @@ import java.util.*;
 
 public class Server {
   public static SpaceMarineSet spaceMarineSet = new SpaceMarineSet(FileManager.selectAll());
+  public static int clientPort;
 
   public static void main(String[] args) {
     /*try {
@@ -39,7 +40,7 @@ public class Server {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(data)) {
       byte[] sendData = new byte[1024];
       while(byteArrayInputStream.read(sendData) != -1){
-        DatagramPacket packet = new DatagramPacket(sendData, sendData.length, InetAddress.getLocalHost(), 2049);
+        DatagramPacket packet = new DatagramPacket(sendData, sendData.length, InetAddress.getLocalHost(), clientPort);
         socket.send(packet);
       }
     } catch (IOException e) {
@@ -79,6 +80,8 @@ public class Server {
   public static byte[] receiveMessage(DatagramChannel receiver) throws IOException {
     ByteBuffer buffer = ByteBuffer.allocate(1024);
     SocketAddress socketAddress = receiver.receive(buffer);
+    clientPort = ((InetSocketAddress) socketAddress).getPort();
+    System.out.println(((InetSocketAddress) socketAddress));
     System.out.println("Received message from: " + socketAddress);
     buffer.flip();
     byte[] data = new byte[buffer.remaining()];
