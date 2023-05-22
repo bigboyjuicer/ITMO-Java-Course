@@ -1,9 +1,8 @@
 package ru.itmo.bigboyjuicer.server;
 
 import ru.itmo.bigboyjuicer.command.AbstractCommand;
-import ru.itmo.bigboyjuicer.server.entity.SpaceMarine;
-import ru.itmo.bigboyjuicer.server.entity.SpaceMarineSet;
-import ru.itmo.bigboyjuicer.server.manager.FileManager;
+import ru.itmo.bigboyjuicer.entity.SpaceMarineSet;
+import ru.itmo.bigboyjuicer.manager.FileManager;
 
 import java.io.*;
 import java.net.*;
@@ -81,31 +80,11 @@ public class Server {
     ByteBuffer buffer = ByteBuffer.allocate(1024);
     SocketAddress socketAddress = receiver.receive(buffer);
     clientPort = ((InetSocketAddress) socketAddress).getPort();
-    System.out.println(((InetSocketAddress) socketAddress));
+    System.out.println(socketAddress);
     System.out.println("Received message from: " + socketAddress);
     buffer.flip();
     byte[] data = new byte[buffer.remaining()];
     buffer.get(data);
     return data;
-  }
-
-  public static DatagramChannel startSender() throws IOException {
-    DatagramChannel sender = DatagramChannel.open();
-    sender.bind(null);
-    sender.configureBlocking(false);
-    return sender;
-  }
-
-  public static void sendMessage(DatagramChannel sender, byte[] data, SocketAddress receiverAddress)
-      throws IOException {
-    System.out.println(Arrays.toString(data));
-    ByteBuffer buffer = ByteBuffer.wrap(data);
-    while (buffer.hasRemaining()) {
-      byte[] newData = new byte[1024];
-      buffer.get(newData);
-      sender.send(ByteBuffer.wrap(newData), receiverAddress);
-    }
-
-    sender.close();
   }
 }

@@ -1,7 +1,7 @@
 package ru.itmo.bigboyjuicer.command;
 
 import ru.itmo.bigboyjuicer.server.Server;
-import ru.itmo.bigboyjuicer.server.entity.SpaceMarine;
+import ru.itmo.bigboyjuicer.entity.SpaceMarine;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,6 +13,7 @@ public class Show extends AbstractCommand implements Serializable {
 
     @Override
     public List<String> execute() {
-        return Server.spaceMarineSet.getSet().stream().sorted().map(SpaceMarine::toString).toList();
+        if(Server.spaceMarineSet.getSet().isEmpty()) return List.of("Collection is empty");
+        else return Server.spaceMarineSet.getSet().stream().sorted().map(SpaceMarine::toString).toList();
     }
 }

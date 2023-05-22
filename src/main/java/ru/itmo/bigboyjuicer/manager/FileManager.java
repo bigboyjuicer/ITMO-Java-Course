@@ -1,12 +1,12 @@
-package ru.itmo.bigboyjuicer.server.manager;
+package ru.itmo.bigboyjuicer.manager;
 
 import com.fatboyindustrial.gsonjavatime.Converters;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import ru.itmo.bigboyjuicer.server.entity.SpaceMarine;
-import ru.itmo.bigboyjuicer.server.entity.SpaceMarineSet;
+import ru.itmo.bigboyjuicer.entity.SpaceMarine;
+import ru.itmo.bigboyjuicer.entity.SpaceMarineSet;
 
 import java.io.*;
 import java.nio.file.FileAlreadyExistsException;

@@ -1,4 +1,4 @@
-package ru.itmo.bigboyjuicer.server.entity;
+package ru.itmo.bigboyjuicer.entity;
 
 import type.AstartesCategory;
 import type.Weapon;

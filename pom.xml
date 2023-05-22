@@ -38,7 +38,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>ru.itmo.bigboyjuicer.server.Server</mainClass>
+                            <mainClass>ru.itmo.bigboyjuicer.client.Client</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
