@@ -23,7 +23,6 @@ public class Client {
       try (DatagramChannel sender = startSender()) {
         AbstractCommand command = validate(scanner.nextLine().trim());
         if (command != null) {
-          HISTORY.add(command.getName());
           sendMessage(sender, serialize(command), SERVER);
         } else {
             continue;
@@ -99,8 +98,13 @@ public class Client {
 
     try {
       Command commandType = Command.valueOf(scanner.next().trim().toUpperCase());
+      HISTORY.add(commandType.getCommand().getName());
 
       if(commandType.name().equals("EXIT")) System.exit(0);
+      if (commandType.name().equals("HISTORY")){
+        HISTORY.forEach(System.out::println);
+        return null;
+      }
 
       if (commandType.isContainsArg() == scanner.hasNextLine()) {
         AbstractCommand command = commandType.getCommand();
