@@ -13,10 +13,10 @@ import type.Weapon;
 public class EnumSelector {
 
   public static Weapon weaponSelection() {
-    System.out.println("Выберите тип оружия (число)");
+    System.out.println("Select type of weapon (number)");
     System.out.println("1 - HEAVY_BOLTGUN, 2 - BOLT_PISTOL, 3 - BOLT_RIFLE, 4 - INFERNO_PISTOL");
 
-    return switch (InputValidator.intValidator("категорию", 1, 4)) {
+    return switch (InputValidator.intValidator("category", 1, 4)) {
       case (1) -> Weapon.HEAVY_BOLTGUN;
       case (2) -> Weapon.BOLT_PISTOL;
       case (3) -> Weapon.BOLT_RIFLE;
@@ -26,10 +26,10 @@ public class EnumSelector {
   }
 
   public static AstartesCategory categorySelection() {
-    System.out.println("Выберите категорию (число)");
+    System.out.println("Choose a category (number)");
     System.out.println("1 - AGGRESSOR, 2 - LIBRARIAN, 3 - CHAPLAIN");
 
-    return switch (InputValidator.intValidator("категорию", 1, 3)) {
+    return switch (InputValidator.intValidator("category", 1, 3)) {
       case (1) -> AstartesCategory.AGGRESSOR;
       case (2) -> AstartesCategory.LIBRARIAN;
       case (3) -> AstartesCategory.CHAPLAIN;

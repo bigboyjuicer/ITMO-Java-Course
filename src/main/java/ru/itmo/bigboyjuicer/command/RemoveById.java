@@ -1,5 +1,6 @@
 package ru.itmo.bigboyjuicer.command;
 
+import ru.itmo.bigboyjuicer.entity.SpaceMarineSet;
 import ru.itmo.bigboyjuicer.server.Server;
 
 import java.io.Serializable;
@@ -12,12 +13,12 @@ public class RemoveById extends AbstractCommand implements Serializable {
   }
 
   @Override
-  public List<String> execute() {
+  public List<String> execute(SpaceMarineSet spaceMarines) {
     try {
-      if (Server.spaceMarineSet.getElement(Long.parseLong(getArg())) != null) {
-        Server.spaceMarineSet.delete(Long.parseLong(getArg()));
+      if (spaceMarines.getElement(Long.parseLong(getArg())) != null) {
+        spaceMarines.delete(Long.parseLong(getArg()));
 
-        return List.of("Success");
+        return List.of("The element was successfully removed");
 
         // LoggerManager.logInfo("Removed element with id: " + this.arg);
 

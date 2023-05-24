@@ -1,6 +1,7 @@
 package ru.itmo.bigboyjuicer.command;
 
 import ru.itmo.bigboyjuicer.entity.SpaceMarine;
+import ru.itmo.bigboyjuicer.entity.SpaceMarineSet;
 import ru.itmo.bigboyjuicer.server.Server;
 
 import java.io.Serializable;
@@ -14,17 +15,17 @@ public class MaxByCreationDate extends AbstractCommand implements Serializable {
   }
 
   @Override
-  public List<String> execute() {
-    if (Server.spaceMarineSet.getSet().stream()
+  public List<String> execute(SpaceMarineSet spaceMarines) {
+    if (spaceMarines.getSet().stream()
         .max(Comparator.comparing(SpaceMarine::getCreationDate))
         .isPresent()) {
       SpaceMarine spaceMarine =
-              Server.spaceMarineSet.getSet().stream()
+              spaceMarines.getSet().stream()
               .max(Comparator.comparing(SpaceMarine::getCreationDate))
               .get();
       return List.of(spaceMarine.toString());
     }
 
-    return List.of("Collection is empty");
+    return List.of("The collection is empty");
   }
 }

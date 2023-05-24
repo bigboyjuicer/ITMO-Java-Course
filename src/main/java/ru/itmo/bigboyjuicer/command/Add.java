@@ -1,8 +1,6 @@
 package ru.itmo.bigboyjuicer.command;
 
-import ru.itmo.bigboyjuicer.builder.EntityBuilder;
-import ru.itmo.bigboyjuicer.server.Server;
-import ru.itmo.bigboyjuicer.entity.SpaceMarine;
+import ru.itmo.bigboyjuicer.entity.SpaceMarineSet;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,9 +12,9 @@ public class Add extends AbstractCommand implements Serializable {
     }
 
     @Override
-    public List<String> execute() {
-        Server.spaceMarineSet.add(getElement());
-        return List.of("Success");
+    public List<String> execute(SpaceMarineSet spaceMarines) {
+        spaceMarines.add(getElement());
+        return List.of("The element was successfully added");
     }
 
     @Override

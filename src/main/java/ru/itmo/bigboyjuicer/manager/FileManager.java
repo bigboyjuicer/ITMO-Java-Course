@@ -43,12 +43,12 @@ public class FileManager {
         try (JsonWriter jsonWriter =
             new JsonWriter(new BufferedWriter(new FileWriter(path.toString()))); ) {
           GSON.toJson(spaceMarines.getSet(), LinkedHashSet.class, jsonWriter);
-          System.out.println("Коллекция успешно было сохранена");
+          System.out.println("The collection has been successfully saved");
         } catch (IOException e) {
-          System.out.println("Не удалось сохранить данные");
+          System.out.println("Unable to save data");
         }
       } else {
-        System.out.println("Отсутствуют права на запись");
+        System.out.println("No write permissions");
       }
     }
   }
@@ -71,15 +71,15 @@ public class FileManager {
           return GSON.fromJson(
               jsonReader, new TypeToken<LinkedHashSet<SpaceMarine>>() {}.getType());
         } catch (IOException | JsonSyntaxException e) {
-          System.out.println("Файл поврежден или в нем находятся не корректные данные");
+          System.out.println("The file is damaged or contains incorrect data");
           suggestCreationOrGettingFile();
           selectAll();
         }
       } else {
         System.out.println(
-            """
-                        Отсутствуют права на чтение файла
-                        Дальнейшая работа с коллекцией не доступна
+                        """
+                        No read permissions
+                        No further work with the collection is available
                         """);
         System.exit(0);
       }
@@ -92,20 +92,20 @@ public class FileManager {
    * if the directory, that listed in Path, is existing.
    */
   private static void createFile() {
-    System.out.println("Введите путь, где хотите создать новый файл");
+    System.out.println("Write the path where you want to create the new file");
     while (true) {
       try {
         Path newPath = Paths.get(new Scanner(System.in).next());
         Files.createFile(newPath);
         path = newPath;
-        System.out.println("Файл успешно создан");
+        System.out.println("File successfully created");
         break;
       } catch (FileAlreadyExistsException ex) {
-        System.out.println("Файл с таким названием уже существует");
+        System.out.println("A file with this name already exists");
       } catch (IOException e) {
-        System.out.println("Директории, в которой вы хотите создать файл, не существует");
+        System.out.println("The directory in which you want to create the file does not exist");
       } catch (NoSuchElementException ex) {
-        System.out.println("Некорректный ввод");
+        System.out.println("Incorrect input");
       }
     }
   }
@@ -114,18 +114,18 @@ public class FileManager {
    * Method that gets file if it's existing or user have enough permissions.
    */
   private static void getExistingFile() {
-    System.out.println("Введите путь до существующего файла");
+    System.out.println("Write the path to an existing file");
     while (true) {
       Path file = Paths.get(new Scanner(System.in).nextLine().trim());
       try {
         if (Files.exists(file)) {
           path = file;
-          System.out.println("Файл успешно найден");
+          System.out.println("File successfully found");
           break;
         }
-        System.out.println("Файла не существует");
+        System.out.println("The file does not exist");
       } catch (SecurityException ex) {
-        System.out.println("Отсутствует доступ к файлу");
+        System.out.println("No file access");
       }
     }
   }
@@ -135,7 +135,7 @@ public class FileManager {
    */
   private static void suggestCreationOrGettingFile() {
     System.out.println(
-        "Вы хотите создать файл (1), указать существующий (2) или выйти из программы (3) ?");
+        "Do you want to create a file (1), specify an existing file (2) or exit the program (3) ?");
     while (true) {
       try {
         int choice = new Scanner(System.in).nextInt();
@@ -143,13 +143,13 @@ public class FileManager {
           case (1) -> createFile();
           case (2) -> getExistingFile();
           case (3) -> System.exit(0);
-          default -> System.out.println("Неверное значение");
+          default -> System.out.println("Incorrect value");
         }
         break;
       } catch (InputMismatchException ex) {
-        System.out.println("Поле должно быть числом");
+        System.out.println("The field must be a number");
       } catch (NoSuchElementException ex) {
-        System.out.println("Некорректный ввод");
+        System.out.println("Incorrect input");
       }
     }
   }
@@ -160,7 +160,7 @@ public class FileManager {
    */
   private static boolean isExist() {
     if (!Files.exists(path)) {
-      System.out.println("Файла с данными не существует");
+      System.out.println("The file does not exist");
       suggestCreationOrGettingFile();
     }
     return true;
@@ -175,7 +175,7 @@ public class FileManager {
     try {
       return Paths.get(System.getenv("FILE"));
     } catch (NullPointerException | SecurityException ex) {
-      System.out.println("Ошибка считывания переменной окружения");
+      System.out.println("Environment variable read error");
       suggestCreationOrGettingFile();
     }
     return path;
@@ -187,8 +187,8 @@ public class FileManager {
     } catch(JsonSyntaxException ex) {
       System.out.println(
               """
-              Неверная команда.
-              help : вывести справку по доступным командам.
+              Wrong command.
+              help : display available commands.
               """);
     }
     return null;

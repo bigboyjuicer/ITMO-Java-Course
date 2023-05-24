@@ -1,5 +1,7 @@
 package ru.itmo.bigboyjuicer.command;
 
+import ru.itmo.bigboyjuicer.entity.SpaceMarineSet;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,26 +12,26 @@ public class Help extends AbstractCommand implements Serializable {
   }
 
   @Override
-  public List<String> execute() {
+  public List<String> execute(SpaceMarineSet spaceMarines) {
     return List.of(
         """
-                        \t\tСправка по доступным командам
+                        \t\tAvailable commands
 
-                        help : вывести справку по доступным командам
-                        info : вывести информацию о коллекции
-                        show : вывести все элементы коллекции
-                        add : добавить новый элемент в коллекцию
-                        update id : обновить значение элемента коллекции
-                        remove_by_id id : удалить элемент из коллекции
-                        clear : очистить коллекцию
-                        execute_script file_name : считать и исполнить скрипт из указанного файла
-                        exit : завершить программу
-                        add_if_min : добавить новый элемент в коллекцию, если его значение меньше, чем у наименьшего элемента этой коллекции
-                        remove_greater : удалить из коллекции все элементы, превышающие заданный
-                        history : вывести последние 7 команд
-                        max_by_creation_date : вывести любой объект из коллекции, значение поля creationDate которого является максимальным
-                        filter_by_weapon_type weaponType : вывести элементы, значение поля weaponType которых равно заданному
-                        print_ascending : вывести элементы коллекции в порядке возрастания
+                        help : display available commands
+                        info : display information about the collection
+                        show : display all element in the collection
+                        add : add a new element to the collection
+                        update id : update element of the collection
+                        remove_by_id id : delete element from the collection
+                        clear : clear the collection
+                        execute_script file_name : read and execute a script from a specified file
+                        exit : exit from program
+                        add_if_min : add a new element to the collection if its value is smaller than the smallest element in that collection
+                        remove_greater : remove all elements from the collection that exceed the specified
+                        history : display the last 7 commands
+                        max_by_creation_date : output any element in the collection whose "creationDate" field value is the maximum
+                        filter_by_weapon_type weaponType : display elements with a "weaponType" field value equal to the given one
+                        print_ascending : display th elements of the collection in ascending order
 
                         """);
   }

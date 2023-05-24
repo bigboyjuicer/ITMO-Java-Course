@@ -1,6 +1,7 @@
 package ru.itmo.bigboyjuicer.command;
 
 import ru.itmo.bigboyjuicer.builder.EntityBuilder;
+import ru.itmo.bigboyjuicer.entity.SpaceMarineSet;
 import ru.itmo.bigboyjuicer.server.Server;
 import ru.itmo.bigboyjuicer.entity.SpaceMarine;
 
@@ -16,15 +17,15 @@ public class Update extends AbstractCommand implements Serializable {
   }
 
   @Override
-  public List<String> execute() {
+  public List<String> execute(SpaceMarineSet spaceMarines) {
     try {
-      SpaceMarine spaceMarine = Server.spaceMarineSet.getElement(Long.parseLong(getArg()));
+      SpaceMarine spaceMarine = spaceMarines.getElement(Long.parseLong(getArg()));
       if (spaceMarine != null) {
         newSpaceMarine.setId(spaceMarine.getId());
         newSpaceMarine.setCreationDate(spaceMarine.getCreationDate());
-        Server.spaceMarineSet.update(newSpaceMarine);
+        spaceMarines.update(newSpaceMarine);
 
-        return List.of("Success");
+        return List.of("The element was successfully updated");
 
         // LoggerManager.logInfo("Updated element with id: " + this.arg);
 

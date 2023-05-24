@@ -23,10 +23,10 @@ public class EntityBuilder {
    */
   public static SpaceMarine spaceMarineBuilder() {
 
-    String name = InputValidator.stringValidator("название");
+    String name = InputValidator.stringValidator("name");
     Coordinates coordinates = coordinatesBuilder();
-    float health = InputValidator.floatValidator("здоровье", 1);
-    int heartCounter = InputValidator.intValidator("кол-во жизней", 1, 3);
+    float health = InputValidator.floatValidator("health", 1);
+    int heartCounter = InputValidator.intValidator("heartCount", 1, 3);
     AstartesCategory category = EnumSelector.categorySelection();
     Weapon weapon = EnumSelector.weaponSelection();
     Chapter chapter = chapterBuilder();
@@ -39,7 +39,7 @@ public class EntityBuilder {
    * @return Coordinates
    */
   public static Coordinates coordinatesBuilder() {
-    System.out.println("Введите координаты");
+    System.out.println("Write coordinates");
 
     int x = InputValidator.intValidator("x", -585);
     int y = InputValidator.intValidator("y");
@@ -53,12 +53,12 @@ public class EntityBuilder {
    * @return Chapter
    */
   public static Chapter chapterBuilder() {
-    System.out.println("Введите chapter");
+    System.out.println("Write chapter");
 
-    String chapterName = InputValidator.stringValidator("название");
+    String chapterName = InputValidator.stringValidator("name");
     String parentLegion = InputValidator.stringValidator("parentLegion");
-    long marinesCount = InputValidator.longValidator("кол-во кораблей");
-    String world = InputValidator.stringValidator("мир");
+    long marinesCount = InputValidator.longValidator("marinesCount");
+    String world = InputValidator.stringValidator("world");
 
     return new Chapter(chapterName, parentLegion, marinesCount, world);
   }

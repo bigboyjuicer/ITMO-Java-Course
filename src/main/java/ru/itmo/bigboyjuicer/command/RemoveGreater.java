@@ -1,5 +1,6 @@
 package ru.itmo.bigboyjuicer.command;
 
+import ru.itmo.bigboyjuicer.entity.SpaceMarineSet;
 import ru.itmo.bigboyjuicer.server.Server;
 
 import java.io.Serializable;
@@ -12,8 +13,8 @@ public class RemoveGreater extends AbstractCommand implements Serializable {
   }
 
   @Override
-  public List<String> execute() {
-    Server.spaceMarineSet.removeIf(getElement());
-    return List.of("Records have been successfully deleted");
+  public List<String> execute(SpaceMarineSet spaceMarines) {
+    spaceMarines.removeIf(getElement());
+    return List.of("Elements were successfully removed");
   }
 }

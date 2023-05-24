@@ -11,8 +11,6 @@ import java.nio.channels.DatagramChannel;
 import java.util.*;
 
 public class Server {
-  public static SpaceMarineSet spaceMarineSet = new SpaceMarineSet(FileManager.selectAll());
-  public static int clientPort;
 
   public static void main(String[] args) {
     /*try {
@@ -22,69 +20,17 @@ public class Server {
       throw new RuntimeException(e);
     }*/
 
-    try (DatagramChannel receiver = startReceiver()) {
+    SpaceMarineSet spaceMarines = new SpaceMarineSet(FileManager.selectAll());
+
+    try (DatagramChannel receiver = Receiver.startReceiver()) {
       while (true) {
-        byte[] receivedMessage = receiveMessage(receiver);
-        AbstractCommand command = deserialize(receivedMessage);
-        List<String> response = command.execute();
-        send(serialize(response));
+        byte[] receivedMessage = Receiver.receiveMessage(receiver);
+        AbstractCommand command = DataDeserialize.deserialize(receivedMessage);
+        List<String> response = command.execute(spaceMarines);
+        Sender.send(DataSerialize.serialize(response));
       }
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-  }
-
-  public static void send(byte[] data) {
-    try (DatagramSocket socket = new DatagramSocket();
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(data)) {
-      byte[] sendData = new byte[1024];
-      while(byteArrayInputStream.read(sendData) != -1){
-        DatagramPacket packet = new DatagramPacket(sendData, sendData.length, InetAddress.getLocalHost(), clientPort);
-        socket.send(packet);
-      }
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  public static byte[] serialize(List<String> response) {
-    try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-         ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)
-        )
-    {
-      objectOutputStream.writeObject(response);
-      return outputStream.toByteArray();
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  public static <T> T deserialize(byte[] data) {
-    try (ObjectInputStream objectInputStream =
-        new ObjectInputStream(new ByteArrayInputStream(data))) {
-      return (T) objectInputStream.readObject();
-    } catch (IOException | ClassNotFoundException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  public static DatagramChannel startReceiver() throws IOException {
-    DatagramChannel receiver = DatagramChannel.open();
-    InetSocketAddress address = new InetSocketAddress("localhost", 2048);
-    receiver.bind(address);
-    System.out.println("Receiver started at #" + address);
-    return receiver;
-  }
-
-  public static byte[] receiveMessage(DatagramChannel receiver) throws IOException {
-    ByteBuffer buffer = ByteBuffer.allocate(1024);
-    SocketAddress socketAddress = receiver.receive(buffer);
-    clientPort = ((InetSocketAddress) socketAddress).getPort();
-    System.out.println(socketAddress);
-    System.out.println("Received message from: " + socketAddress);
-    buffer.flip();
-    byte[] data = new byte[buffer.remaining()];
-    buffer.get(data);
-    return data;
   }
 }

@@ -1,7 +1,7 @@
 package ru.itmo.bigboyjuicer.command;
 
 import ru.itmo.bigboyjuicer.entity.SpaceMarine;
-import ru.itmo.bigboyjuicer.server.Server;
+import ru.itmo.bigboyjuicer.entity.SpaceMarineSet;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,18 +13,18 @@ public class AddIfMin extends AbstractCommand implements Serializable {
   }
 
   @Override
-  public List<String> execute() {
-    if (checkIfMin()) {
-      Server.spaceMarineSet.add(getElement());
-      return List.of("Success");
+  public List<String> execute(SpaceMarineSet spaceMarines) {
+    if (checkIfMin(spaceMarines)) {
+      spaceMarines.add(getElement());
+      return List.of("The element was successfully added");
     } else {
-      return List.of("The record does not meet the conditions");
+      return List.of("The element does not meet the conditions");
     }
   }
 
-  private boolean checkIfMin() {
+  private boolean checkIfMin(SpaceMarineSet spaceMarines) {
     SpaceMarine minSpaceMarine =
-        Server.spaceMarineSet.getSet().stream().min(SpaceMarine::compareTo).orElse(null);
+        spaceMarines.getSet().stream().min(SpaceMarine::compareTo).orElse(null);
     return minSpaceMarine != null && minSpaceMarine.compareTo(getElement()) > 0;
   }
 }

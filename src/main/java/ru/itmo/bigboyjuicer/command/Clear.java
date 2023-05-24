@@ -1,6 +1,6 @@
 package ru.itmo.bigboyjuicer.command;
 
-import ru.itmo.bigboyjuicer.server.Server;
+import ru.itmo.bigboyjuicer.entity.SpaceMarineSet;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,8 +12,8 @@ public class Clear extends AbstractCommand implements Serializable {
     }
 
     @Override
-    public List<String> execute() {
-        Server.spaceMarineSet.clear();
-        return List.of("Success");
+    public List<String> execute(SpaceMarineSet spaceMarines) {
+        spaceMarines.clear();
+        return List.of("The collection was successfully cleared");
     }
 }

@@ -1,6 +1,7 @@
 package ru.itmo.bigboyjuicer.command;
 
 import ru.itmo.bigboyjuicer.entity.SpaceMarine;
+import ru.itmo.bigboyjuicer.entity.SpaceMarineSet;
 import ru.itmo.bigboyjuicer.server.Server;
 
 import java.io.Serializable;
@@ -15,9 +16,9 @@ public class FilterByWeaponType extends AbstractCommand implements Serializable 
   }
 
   @Override
-  public List<String> execute() {
+  public List<String> execute(SpaceMarineSet spaceMarines) {
     Set<SpaceMarine> set =
-        Server.spaceMarineSet.getSet().stream()
+        spaceMarines.getSet().stream()
             .filter(o -> o.getWeaponType().toString().equalsIgnoreCase(getArg()))
             .collect(Collectors.toSet());
     if (set.isEmpty()) {

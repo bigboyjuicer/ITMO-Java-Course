@@ -1,5 +1,6 @@
 package ru.itmo.bigboyjuicer.command;
 
+import ru.itmo.bigboyjuicer.entity.SpaceMarineSet;
 import ru.itmo.bigboyjuicer.server.Server;
 import ru.itmo.bigboyjuicer.manager.FileManager;
 
@@ -20,23 +21,23 @@ public class Info extends AbstractCommand implements Serializable {
     }
 
     @Override
-    public List<String> execute() {
+    public List<String> execute(SpaceMarineSet spaceMarines) {
         try {
             String type = "SpaceMarine";
             File file = new File(FileManager.path.toString());
             float usableSpace = (float) file.length() / 1000;
             FileTime creationTime =
                     (FileTime) Files.getAttribute(Path.of(FileManager.path.toString()), "creationTime");
-            int size = Server.spaceMarineSet.getSet().size();
+            int size = spaceMarines.getSet().size();
 
-            String result = String.format("Тип коллекции: %s\nДата инициализации: %s\nЗанимаемое место: %.1f КБ\nКол-во элементов: %d", type, creationTime
+            String result = String.format("Type of the collection: %s\nCreation date: %s\nUsable space: %.1f КБ\nNumber of elements: %d", type, creationTime
                     .toInstant()
                     .atZone(ZoneId.systemDefault())
                     .toLocalDate()
                     .format(dateTimeFormat), usableSpace, size);
             return List.of(result);
         } catch (IOException e) {
-            System.out.println("Файл не был найден");
+            System.out.println("File was not found");
         }
 
         return List.of("Error");
