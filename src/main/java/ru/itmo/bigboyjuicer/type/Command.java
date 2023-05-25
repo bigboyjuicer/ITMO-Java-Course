@@ -6,7 +6,7 @@ public enum Command {
   HELP(new Help(), false),
   INFO(new Info(), false),
   SHOW(new Show(), false),
-  ADD(new Add(), false),
+  ADD(new Add(), true),
   UPDATE(new Update(), true),
   REMOVE_BY_ID(new RemoveById(), true),
   CLEAR(new Clear(), false),
@@ -16,7 +16,8 @@ public enum Command {
   REMOVE_GREATER(new RemoveGreater(), false),
   HISTORY(new History(), false),
   MAX_BY_CREATION_DATE(new MaxByCreationDate(), false),
-  FILTER_BY_WEAPON_TYPE(new FilterByWeaponType(), true);
+  FILTER_BY_WEAPON_TYPE(new FilterByWeaponType(), true),
+  PRINT_ASCENDING(new PrintAscending(), false);
 
   private AbstractCommand command;
   private boolean containsArg;

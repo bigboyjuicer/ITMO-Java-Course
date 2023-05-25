@@ -2,6 +2,7 @@ package ru.itmo.bigboyjuicer.client;
 
 import ru.itmo.bigboyjuicer.builder.EntityBuilder;
 import ru.itmo.bigboyjuicer.command.AbstractCommand;
+import ru.itmo.bigboyjuicer.command.History;
 import ru.itmo.bigboyjuicer.type.Command;
 
 import java.io.*;
@@ -21,6 +22,7 @@ public class Client {
     while (true) {
       try {
         menu(scanner.nextLine());
+
       } catch (NoSuchElementException ex) {
         System.exit(0);
       }
@@ -28,9 +30,11 @@ public class Client {
   }
 
   public static void menu(String input) {
+    String executedCommand;
     try (DatagramChannel sender = Sender.startSender()) {
       AbstractCommand command = CommandInputValidator.validate(input.trim());
       if (command != null) {
+        executedCommand = command.getName();
         Sender.sendMessage(sender, DataSerialize.serialize(command), SERVER);
       } else {
         return;
@@ -40,5 +44,8 @@ public class Client {
     }
     List<String> response = DataDeserialize.deserialize(Receiver.receive());
     response.forEach(System.out::println);
+    if(!executedCommand.isEmpty()) {
+      HISTORY.add(executedCommand);
+    }
   }
 }

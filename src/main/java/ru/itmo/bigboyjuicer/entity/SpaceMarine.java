@@ -63,6 +63,14 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
     this.creationDate = creationDate;
   }
 
+  public Coordinates getCoordinates() {
+    return coordinates;
+  }
+
+  public void setCoordinates(Coordinates coordinates) {
+    this.coordinates = coordinates;
+  }
+
   public Weapon getWeaponType() {
     return weaponType;
   }

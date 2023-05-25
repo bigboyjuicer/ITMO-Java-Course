@@ -3,13 +3,22 @@ package ru.itmo.bigboyjuicer.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Coordinates implements Serializable {
+public class Coordinates implements Comparable<Coordinates>, Serializable {
   private long x;
   private long y;
 
   public Coordinates(long x, long y) {
     this.x = x;
     this.y = y;
+  }
+
+  public long getX() {
+    return x;
+  }
+
+  @Override
+  public int compareTo(Coordinates o) {
+    return Long.compare(x, o.getX());
   }
 
   @Override
